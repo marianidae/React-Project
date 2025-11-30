@@ -129,7 +129,7 @@ const Container = ({ children }) => (
   <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col">
     {/* Nav */}
     <nav className="sticky top-0 z-10 bg-white/80 backdrop-blur shadow-sm">
-      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center gap-4">
+      <div className="w-full px-8 py-3 flex items-center gap-4">
         <Link to="/" className="flex items-center gap-3 font-semibold">
           <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shadow">
             <img src={Logo} alt="RecipeHub logo" className="w-8 h-8" />
@@ -142,12 +142,12 @@ const Container = ({ children }) => (
     </nav>
 
     {/* Main */}
-    <main className="max-w-5xl mx-auto px-4 py-6 bg-cover bg-center bg-no-repeat min-h-screen"
+    <main className="relative w-full px-8 py-6 bg-cover bg-center bg-no-repeat min-h-screen"
       style={{ backgroundImage: "url('/kitchen-bg.jpg')" }}>{children}</main>
 
     {/* Footer */}
     <footer className="border-t py-6 text-sm text-gray-500">
-      <div className="max-w-5xl mx-auto px-4">
+      <div className="w-full px-8">
         © {new Date().getFullYear()} RecipeHub — учебен проект.
       </div>
     </footer>
@@ -211,21 +211,28 @@ const NavAuth = () => {
 // Pages
 // ======================
 const Home = () => (
-  <section className="flex flex-col gap-6 min-h-[110vh]">
+  <section className="w-screen -mx-8 px-8 flex flex-col gap-6 min-h-[110vh]">
     <div className="flex-1">
-      <h1 className="text-3xl font-bold mb-2">Добре дошли в RecipeHub</h1>
-      <p className="text-gray-600 mb-4">
-        Тук можете да създавате, редактирате и управлявате своите любими
-        рецепти. Приложението е реализирано като React SPA с бекенд на Node /
-        Express.
-      </p>
-      <div className="flex gap-3 flex-wrap">
-        <Link
-          to="/catalog"
-          className="px-4 py-2 rounded-xl bg-gray-900 text-white hover:opacity-90"
-        >
-          Разгледай каталога
-        </Link>
+      <div className="bg-white/90 backdrop-blur-sm border border-gray-200 shadow-xl 
+                  rounded-3xl p-6 max-w-2xl mt-20 animate-[fadeInUp_0.8s_ease-out]">
+
+        <h1 className="text-3xl font-bold mb-2 text-gray-900">
+          Добре дошли в RecipeHub
+        </h1>
+
+        <p className="text-gray-700 mb-4 leading-relaxed">
+          Тук можете да създавате, редактирате и управлявате своите любими рецепти.
+          Приложението е реализирано като React SPA с бекенд на Node / Express.
+        </p>
+
+        <div className="flex gap-3 flex-wrap">
+          <Link
+            to="/catalog"
+            className="px-4 py-2 rounded-xl bg-gray-900 text-white hover:opacity-90 shadow-md"
+          >
+            Разгледай каталога
+          </Link>
+        </div>
 
       </div>
     </div>
@@ -293,11 +300,14 @@ const Catalog = () => {
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      {recipes.map((r) => (
-        <RecipeCard key={r._id} r={r} />
-      ))}
-    </div>
+    <section className="w-screen -mx-8 px-8">
+      {/* -mx-8 компенсира padding-а на <main>, за да използваме цялата ширина */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {recipes.map((r) => (
+          <RecipeCard key={r._id} r={r} />
+        ))}
+      </div>
+    </section>
   );
 };
 
@@ -351,15 +361,18 @@ const Details = () => {
   if (!r) return <p>Зареждане…</p>;
 
   return (
-    <article className="grid md:grid-cols-2 gap-6">
+    <article
+      className="grid md:grid-cols-2 gap-6 bg-white/90 backdrop-blur-sm
+               rounded-3xl border border-gray-200 shadow-xl p-6 mt-8"
+    >
       <img
         src={r.imageUrl}
         alt=""
         className="w-full rounded-2xl border object-cover max-h-[420px]"
       />
       <div>
-        <h1 className="text-2xl font-bold">{r.title}</h1>
-        <p className="mt-2 text-gray-700 whitespace-pre-wrap">
+        <h1 className="text-2xl font-bold mb-2 text-gray-900">{r.title}</h1>
+        <p className="mt-2 text-gray-700 whitespace-pre-wrap leading-relaxed">
           {r.description}
         </p>
 
